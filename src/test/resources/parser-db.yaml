@@ -1,0 +1,103 @@
+name: "DB Test"
+type: "CSV"
+lineSeparator: "\n"
+cellSeparator: ";"
+decimalPoint: "."
+thousandSeparator: ","
+rules:
+- conditions:
+  - cell_index: 0
+    operation: "EQ"
+    value: "Old balance:"
+  definition:
+    type: "PERIOD_START"
+    amount_cell: 4
+- conditions:
+  - cell_index: 16
+    operation: "IS"
+    value: "numeric,positive"
+  - cell_index: 4
+    operation: "CONTAINS"
+    value: "Lohn/Gehalt"
+  definition:
+    type: "INCOME"
+    amount_cell: 16
+    notes_cells:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+- conditions:
+  - cell_index: 16
+    operation: "IS"
+    value: "numeric,positive"
+  definition:
+    type: "INCOME"
+    amount_cell: 16
+    notes_cells:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+- conditions:
+  - cell_index: 15
+    operation: "IS"
+    value: "numeric,negative"
+  - cell_index: 4
+    operation: "EQ"
+    value: "DE88500700100175526303"
+  definition:
+    type: "TRANSFER_OUT"
+    amount_cell: 15
+    amount_op: "invert"
+    notes_cells:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    target_wallet: "PayPal"
+- conditions:
+  - cell_index: 15
+    operation: "IS"
+    value: "numeric,negative"
+  - cell_index: 3
+    operation: "CONTAINS"
+    value: "DANKE, IHR LIDL"
+  definition:
+    type: "SPENDING"
+    amount_cell: 15
+    amount_op: "invert"
+    tags:
+    - "Супермаркет"
+    - "Быт"
+    - "Lidl"
+    notes_cells:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+- conditions:
+  - cell_index: 15
+    operation: "IS"
+    value: "numeric,negative"
+  definition:
+    type: "SPENDING"
+    amount_cell: 15
+    amount_op: "invert"
+    notes_cells:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+- conditions:
+  - cell_index: 0
+    operation: "EQ"
+    value: "Account balance"
+  definition:
+    type: "PERIOD_END"
+    amount_cell: 4

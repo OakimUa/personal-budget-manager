@@ -1,0 +1,75 @@
+{
+  "name": "DB Test",
+  "type": "CSV",
+  "lineSeparator": "\n",
+  "cellSeparator": ";",
+  "rules": [
+    {
+      "conditions": [
+        {
+          "cell_index": 0,
+          "operation": "EQ",
+          "value": "Old balance:"
+        }
+      ],
+      "definition": {
+        "type": "PERIOD_START",
+        "amount_cell": 4
+      }
+    },
+    {
+      "conditions": [
+        {
+          "cell_index": 16,
+          "operation": "IS",
+          "value": "numeric,positive"
+        }
+      ],
+      "definition": {
+        "type": "INCOME",
+        "amount_cell": 16,
+        "notes_cells": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "conditions": [
+        {
+          "cell_index": 15,
+          "operation": "IS",
+          "value": "numeric,negative"
+        }
+      ],
+      "definition": {
+        "type": "SPENDING",
+        "amount_cell": 15,
+        "notes_cells": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "amount_op": "invert"
+      }
+    },
+    {
+      "conditions": [
+        {
+          "cell_index": 0,
+          "operation": "EQ",
+          "value": "Account balance"
+        }
+      ],
+      "definition": {
+        "type": "PERIOD_END",
+        "amount_cell": 4
+      }
+    }
+  ]
+}
